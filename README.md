@@ -1,0 +1,1 @@
+Hi, we are Commit and Cry, a group of developers who commit our code… and then cry when it doesn’t work. 😭💻 We handle everything from design to database, and while our code may have bugs sometimes, our teamwork never crashes. Today, we’re here to present our project and prove that all those commits (and tears) were worth it.
