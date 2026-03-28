@@ -1,1 +1,1 @@
-Hi, we are ParaCodeCode, a group of developers who copy paste our code… and then cry when it doesn’t work. 😭💻 We handle everything from design to database, and while our code may have bugs sometimes, our teamwork never crashes. Today, we’re here to present our project and prove that all those commits and tears were worth it.
+Hi! We are ParaCodeCode. We copy, we paste, we pray, and sometimes our code still errors. Through all the bugs, late nights, and endless commits, we just whisper to our screens “Sana gumana na.”
