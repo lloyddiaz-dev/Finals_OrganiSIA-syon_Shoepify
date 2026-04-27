@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ShoePify Shop</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white px-4 shadow-sm">
+  <a class="navbar-brand fw-bold text-danger">ShoePify</a>
+
+  <div class="d-flex mx-auto w-50">
+    <input class="form-control me-2" type="search" id="searchInput" placeholder="Search shoes...">
+    <button class="btn btn-danger">Search</button>
+  </div>
+
+  <div class="d-flex gap-2">
+    <a href="orders.html" class="btn btn-outline-dark">Orders</a>
+    <a href="cart.html" class="btn btn-outline-dark">🛒 Cart</a>
+  </div>
+</nav>
+
+<!-- BANNER -->
+<div class="container mt-3">
+  <div class="bg-danger text-white p-5 rounded text-center">
+    <h2>🔥 Big Sale!</h2>
+    <p>Up to 50% off on selected shoes</p>
+  </div>
+</div>
+
+<!-- DYNAMIC PRODUCTS FROM API -->
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>All Products</h4>
+    <span id="productCount" class="text-muted small"></span>
+  </div>
+
+  <!-- Spinner while loading -->
+  <div id="loadingSpinner" class="text-center py-5">
+    <div class="spinner-border text-danger" role="status"></div>
+    <p class="mt-2 text-muted">Loading products...</p>
+  </div>
+
+  <!-- JS injects product cards here -->
+  <div class="row g-3" id="productList"></div>
+</div>
+
+<script src="js/products.js"></script>
+</body>
+</html>
