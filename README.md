@@ -1,4 +1,31 @@
 Hi! We are ParaCodeCode. We copy, we paste, we pray, and sometimes our code still errors. Through all the bugs, late nights, and endless commits, we just whisper to our screens “Sana gumana na.”
+## Phase 1: Backend Setup
+
+### Functionality Changes
+- **Project Initialization**: Set up backend project configuration and dependencies using Node.js and npm.
+- **Database Configuration**: Added database connection module for MongoDB integration.
+- **Initial Structure**: Established the foundation for the backend with package.json and basic folder structure.
+
+## Phase 2: Backend Development
+
+### Functionality Changes
+- **Data Models**: Implemented Mongoose models for User, Product, Category, Cart, Order, Payment, and Review.
+- **API Routes**: Created Express.js routes for all CRUD operations on users, products, categories, carts, orders, payments, and reviews.
+- **Server Setup**: Configured Express server with middleware for handling requests and responses.
+
+## Phase 3: Frontend Development
+
+### Functionality Changes
+- **HTML Pages**: Developed complete set of HTML pages including index, login, register, dashboard, products, cart, orders, profile, and admin interfaces.
+- **JavaScript Functionality**: Added client-side JavaScript for product display, form handling, and user interactions.
+- **Styling**: Implemented CSS for responsive design and user-friendly interface.
+- **Documentation**: Added Phase-3 Frontend Documentation and Lab 11 README with implementation details.
+
+## Phase 4: Integration and Security
+
+### Functionality Changes
+- **API Integration**: Connected frontend forms to backend API endpoints for user registration and authentication.
+- **Security Enhancements**: Implemented input validation, XSS protection, and rate limiting to secure the application.
 ## Phase 5: GitHub and Team Workflow
 
 ### Functionality Changes
