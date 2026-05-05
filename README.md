@@ -1,4 +1,12 @@
-Hi! We are ParaCodeCode. We copy, we paste, we pray, and sometimes our code still errors. Through all the bugs, late nights, and endless commits, we just whisper to our screens “Sana gumana na.”
+### Hi! We are ParaCodeCode, composed of:
+
+- **Jannus Nicole Robrigado** – Project Manager / Tester
+- **Joshua Belmonte** – Front-End Developer / Tester
+- **Philip Mustera** – Back-End Developer
+- **John Christopher Ernas** – Database Manager
+- **Lloyd Omar Diaz** – GitHub Manager
+
+As a team, we collaborated to complete the project by handling different responsibilities across frontend, backend, database, testing, and version control. Despite challenges such as bugs and integration issues, we remained persistent and worked together to achieve a fully functional system.
 
 ## Phase 1: Backend Setup
 
