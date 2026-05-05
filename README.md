@@ -41,7 +41,7 @@ Hi! We are ParaCodeCode. We copy, we paste, we pray, and sometimes our code stil
 - **Security Features**: Implemented validation, XSS protection, and rate limiting to ensure secure interactions.
 - **Collaboration**: All changes committed and pushed to GitHub with clear commit messages for team tracking.
 
-## Phase 6: Finalizing CRUD
+## Phase 6: Finalizing CRUD (Update & Delete)
 
 ### Functionality Changes
 
