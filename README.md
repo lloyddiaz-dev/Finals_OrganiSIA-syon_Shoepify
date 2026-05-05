@@ -40,3 +40,16 @@ Hi! We are ParaCodeCode. We copy, we paste, we pray, and sometimes our code stil
 - **Backend Enhancements**: API controllers for user registration and other routes have been updated to handle form submissions securely.
 - **Security Features**: Implemented validation, XSS protection, and rate limiting to ensure secure interactions.
 - **Collaboration**: All changes committed and pushed to GitHub with clear commit messages for team tracking.
+
+## Phase 6: Finalizing CRUD
+
+### Functionality Changes
+
+- **PUT and DELETE API Implementation**: Added backend routes for updating and deleting data using Express and Mongoose. Controllers were configured to handle user edits and removals efficiently.
+- **Frontend UI Integration**: Implemented Edit and Delete buttons across relevant pages (e.g., dashboard, listings) with proper data binding using data-id.
+- **Edit Functionality**: Created modal forms that preload existing user data. Users can update information, which is then sent to the backend using PUT requests.
+- **Delete Functionality**: Added confirmation prompts before deletion and connected DELETE requests to remove data from the database.
+- **Database Synchronization**: Verified that all updates and deletions are correctly reflected in MongoDB without inconsistencies.
+- **Testing**: API endpoints were tested using Postman/Thunder Client before frontend integration to ensure reliability.
+- **GitHub Updates**: All new files (edit.js, delete.js, modals, and updated routes) were committed and pushed to the repository with organized commit logs.
+- **Documentation**: Screenshots of edit modals, delete confirmations, and database changes were prepared along with code snippets for the final report.
