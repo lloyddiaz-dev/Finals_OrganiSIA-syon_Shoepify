@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = '/api';
 
 // Show/hide address field based on role
 document.querySelectorAll('input[name="role"]').forEach(radio => {

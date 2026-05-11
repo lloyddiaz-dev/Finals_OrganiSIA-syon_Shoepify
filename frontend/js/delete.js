@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = '/api';
 
 function deleteProduct(id) {
   if (confirm('Are you sure you want to delete this product?')) {

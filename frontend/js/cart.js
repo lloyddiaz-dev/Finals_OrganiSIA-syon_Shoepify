@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = '/api';
 
 // Get logged in user
 const currentUser = JSON.parse(localStorage.getItem('shoepify_user') || 'null');
