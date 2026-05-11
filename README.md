@@ -28,7 +28,7 @@ As a team, we collaborated to complete the project by handling different respons
 
 ### Functionality Changes
 
-- **HTML Pages**: Developed complete set of HTML pages including index, login, register, dashboard, products, cart, orders, profile, and admin interfaces.
+- **HTML Pages**: Developed complete set of HTML pages including index, login, register, dashboard, products, cart, orders, and admin interfaces.
 - **JavaScript Functionality**: Added client-side JavaScript for product display, form handling, and user interactions.
 - **Styling**: Implemented CSS for responsive design and user-friendly interface.
 - **Documentation**: Added Phase-3 Frontend Documentation and Lab 11 README with implementation details.
