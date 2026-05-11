@@ -5,11 +5,31 @@ const User = require('../models/User');
 // Create user
 router.post('/', async (req, res) => {
   try {
+
+       if (req.body.role === 'admin') {
+      const existingAdmin = await User.findOne({ role: 'admin' });
+      if (existingAdmin) {
+        return res.status(400).json({ message: 'An admin account already exists. Only one admin is allowed.' });
+      }
+    }
+
     const user = new User(req.body);
     await user.save();
     res.status(201).json(user);
   } catch (err) {
     res.status(400).json({ message: err.message });
+  }
+});
+
+// Login user
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email, password });
+    if (!user) return res.status(401).json({ message: 'Invalid email or password' });
+    res.json({ message: 'Login successful', user });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 

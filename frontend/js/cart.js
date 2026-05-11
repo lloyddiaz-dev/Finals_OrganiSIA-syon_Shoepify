@@ -1,5 +1,8 @@
 const API_BASE = 'http://localhost:5000/api';
 
+// Get logged in user
+const currentUser = JSON.parse(localStorage.getItem('shoepify_user') || 'null');
+
 async function updateStock(productId, change) {
   try {
     const res = await fetch(`${API_BASE}/products/${productId}`);
@@ -34,13 +37,11 @@ function renderCart() {
   emptyCart.style.display = 'none';
   cartContent.style.display = 'block';
   tbody.innerHTML = '';
-
   let total = 0;
 
   cart.forEach((item, index) => {
     const subtotal = item.price * item.qty;
     total += subtotal;
-
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>
@@ -51,6 +52,7 @@ function renderCart() {
           <span class="fw-bold">${item.name}</span>
         </div>
       </td>
+      <td><span class="badge bg-secondary">${item.size || 'N/A'}</span></td>
       <td>₱${item.price.toLocaleString()}</td>
       <td>
         <div class="d-flex align-items-center gap-2">
@@ -72,21 +74,14 @@ function renderCart() {
 }
 
 function setupCartButtons() {
-
-  // INCREASE QTY
   document.querySelectorAll('.increase-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
       const i = Number(btn.getAttribute('data-index'));
       const id = btn.getAttribute('data-id');
       let cart = JSON.parse(localStorage.getItem('shoepify_cart') || '[]');
-
       const res = await fetch(`${API_BASE}/products/${id}`);
       const product = await res.json();
-      if (product.stock <= 0) {
-        alert('No more stock available!');
-        return;
-      }
-
+      if (product.stock <= 0) { alert('No more stock available!'); return; }
       cart[i].qty += 1;
       localStorage.setItem('shoepify_cart', JSON.stringify(cart));
       await updateStock(id, -1);
@@ -94,13 +89,11 @@ function setupCartButtons() {
     });
   });
 
-  // DECREASE QTY
   document.querySelectorAll('.decrease-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
       const i = Number(btn.getAttribute('data-index'));
       const id = btn.getAttribute('data-id');
       let cart = JSON.parse(localStorage.getItem('shoepify_cart') || '[]');
-
       if (cart[i].qty > 1) {
         cart[i].qty -= 1;
         localStorage.setItem('shoepify_cart', JSON.stringify(cart));
@@ -114,20 +107,29 @@ function setupCartButtons() {
     });
   });
 
-  // REMOVE
   document.querySelectorAll('.remove-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
       const i = Number(btn.getAttribute('data-index'));
       const id = btn.getAttribute('data-id');
       const qty = Number(btn.getAttribute('data-qty'));
       let cart = JSON.parse(localStorage.getItem('shoepify_cart') || '[]');
-
       await updateStock(id, +qty);
       cart.splice(i, 1);
       localStorage.setItem('shoepify_cart', JSON.stringify(cart));
       renderCart();
     });
   });
+}
+
+function setupPaymentHighlight() {
+  document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+      radio.closest('.payment-option').classList.add('selected');
+    });
+  });
+  const defaultOpt = document.querySelector('input[name="paymentMethod"]:checked');
+  if (defaultOpt) defaultOpt.closest('.payment-option').classList.add('selected');
 }
 
 function setupCheckout() {
@@ -138,7 +140,12 @@ function setupCheckout() {
     const cart = JSON.parse(localStorage.getItem('shoepify_cart') || '[]');
     if (cart.length === 0) return;
 
-    // Fill order summary in modal
+    // Fill saved user info in modal
+    if (currentUser) {
+      document.getElementById('displayName').textContent = `👤 ${currentUser.name}`;
+      document.getElementById('displayAddress').textContent = `📍 ${currentUser.address || 'No address saved'}`;
+    }
+
     const summaryEl = document.getElementById('orderSummary');
     const modalTotal = document.getElementById('modalTotal');
     let total = 0;
@@ -148,32 +155,51 @@ function setupCheckout() {
       total += subtotal;
       return `
         <div class="d-flex justify-content-between mb-1 small">
-          <span>${item.name} x${item.qty}</span>
+          <span>${item.name} (Size ${item.size || 'N/A'}) x${item.qty}</span>
           <span class="text-danger fw-bold">₱${subtotal.toLocaleString()}</span>
-        </div>
-      `;
+        </div>`;
     }).join('');
 
     modalTotal.textContent = `₱${total.toLocaleString()}`;
-
-    // Open modal
     new bootstrap.Modal(document.getElementById('checkoutModal')).show();
+    setupPaymentHighlight();
+
+    // Toggle different address fields
+    document.getElementById('useDifferentAddress').addEventListener('change', function () {
+      document.getElementById('differentAddressFields').style.display = this.checked ? 'block' : 'none';
+    });
   });
 
-  // PLACE ORDER BUTTON (inside modal)
   document.getElementById('confirmOrderBtn').addEventListener('click', async () => {
-    const name = document.getElementById('customerName').value.trim();
-    const address = document.getElementById('customerAddress').value.trim();
+    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+    const useDifferent = document.getElementById('useDifferentAddress').checked;
 
-    if (!name || !address) {
-      alert('Please fill in your name and delivery address!');
-      return;
+    // Use saved user info or alternative
+    let name, address;
+    if (useDifferent) {
+      name = document.getElementById('altName').value.trim();
+      address = document.getElementById('altAddress').value.trim();
+      if (!name || !address) {
+        alert('Please fill in the alternative name and address!');
+        return;
+      }
+    } else {
+      name = currentUser?.name || '';
+      address = currentUser?.address || '';
+      if (!name || !address) {
+        alert('No saved address found. Please use a different address.');
+        document.getElementById('useDifferentAddress').checked = true;
+        document.getElementById('differentAddressFields').style.display = 'block';
+        return;
+      }
     }
 
     const cart = JSON.parse(localStorage.getItem('shoepify_cart') || '[]');
     const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+    const isCOD = paymentMethod === 'Cash on Delivery';
+    const paymentStatus = isCOD ? 'pending' : 'completed';
+    const orderStatus = isCOD ? 'pending' : 'paid';
 
-    // Build order object matching backend schema
     const order = {
       user: name,
       products: cart.map(item => ({
@@ -181,41 +207,54 @@ function setupCheckout() {
         quantity: item.qty,
         name: item.name,
         price: item.price,
-        image: item.image
+        image: item.image,
+        size: item.size
       })),
       totalPrice: total,
       deliveryAddress: address,
-      status: 'pending',
+      status: orderStatus,
+      paymentMethod: paymentMethod,
       date: new Date().toLocaleDateString()
     };
 
     try {
-      const res = await fetch(`${API_BASE}/orders`, {
+      const orderRes = await fetch(`${API_BASE}/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(order)
       });
+      if (!orderRes.ok) throw new Error('Order failed');
+      const savedOrder = await orderRes.json();
 
-      if (!res.ok) throw new Error('Order failed');
+      await fetch(`${API_BASE}/payments`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          order: savedOrder._id,
+          amount: total,
+          method: paymentMethod,
+          status: paymentStatus,
+          paidAt: isCOD ? null : new Date()
+        })
+      });
 
-      // Save to localStorage too for customer orders page
       let orders = JSON.parse(localStorage.getItem('shoepify_orders') || '[]');
-      const savedOrder = await res.json();
       orders.push({
         id: savedOrder._id,
         date: order.date,
         items: cart,
-        total: total,
-        status: 'Pending',
+        total,
+        status: orderStatus,
+        paymentMethod,
+        paymentStatus,
         user: name,
-        address: address
+        address
       });
       localStorage.setItem('shoepify_orders', JSON.stringify(orders));
-
-      // Clear cart
       localStorage.setItem('shoepify_cart', '[]');
 
-      alert(`Order placed successfully! Thank you, ${name}! 🎉`);
+      const payMsg = isCOD ? 'Cash on Delivery — pay when it arrives!' : `${paymentMethod} — Payment confirmed! ✅`;
+      alert(`Order placed! Thank you, ${name}! 🎉\n${payMsg}`);
       window.location.href = 'orders.html';
 
     } catch (error) {
@@ -226,6 +265,11 @@ function setupCheckout() {
 }
 
 window.onload = function () {
+  // Redirect to login if not logged in
+  if (!currentUser) {
+    window.location.href = 'login.html';
+    return;
+  }
   renderCart();
   setupCheckout();
 };

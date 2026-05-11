@@ -9,6 +9,16 @@ router.post('/', async (req, res) => {
   res.status(201).json(review);
 });
 
+// Get all reviews
+router.get('/', async (req, res) => {
+  try {
+    const reviews = await Review.find();
+    res.json(reviews);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Get reviews for a product
 router.get('/:productId', async (req, res) => {
   const reviews = await Review.find({ product: req.params.productId }).populate('user');

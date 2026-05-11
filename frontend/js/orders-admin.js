@@ -11,7 +11,17 @@ async function fetchOrders() {
   }
 }
 
-function renderOrders(orders) {
+async function fetchPayments() {
+  try {
+    const res = await fetch(`${API_BASE}/payments`);
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (err) {
+    return [];
+  }
+}
+
+function renderOrders(orders, payments) {
   const spinner = document.getElementById('adminOrderSpinner');
   const emptyEl = document.getElementById('emptyOrders');
   const tableContainer = document.getElementById('ordersTableContainer');
@@ -28,32 +38,58 @@ function renderOrders(orders) {
 
   emptyEl.style.display = 'none';
   tableContainer.style.display = 'block';
-
   if (countEl) countEl.textContent = `Total: ${orders.length} order(s)`;
 
   tbody.innerHTML = '';
-
-  // Show newest first
   const reversed = [...orders].reverse();
 
   reversed.forEach(order => {
-    const statusColor = order.status === 'delivered' ? 'bg-success'
+    const orderId = order._id.toString();
+
+    // Match payment
+    const payment = payments.find(p => {
+      const pOrderId = typeof p.order === 'object'
+        ? p.order?._id?.toString()
+        : p.order?.toString();
+      return pOrderId === orderId;
+    });
+
+    // Payment badge
+    let paymentBadge = '<span class="badge bg-secondary">No payment info</span>';
+    if (payment) {
+      const isCompleted = payment.status === 'completed';
+      const method = payment.method || 'Unknown';
+      paymentBadge = isCompleted
+        ? `<span class="badge bg-success">✅ ${method} - Paid</span>`
+        : `<span class="badge bg-warning text-dark">💵 ${method} - Pending</span>`;
+    } else if (order.paymentMethod) {
+      const isCOD = order.paymentMethod === 'Cash on Delivery';
+      paymentBadge = isCOD
+        ? `<span class="badge bg-warning text-dark">💵 COD - Pending</span>`
+        : `<span class="badge bg-success">✅ ${order.paymentMethod} - Paid</span>`;
+    }
+
+    // Order status badge
+    const statusColor = order.status === 'paid' ? 'bg-success'
       : order.status === 'shipped' ? 'bg-primary'
+      : order.status === 'delivered' ? 'bg-info'
       : order.status === 'cancelled' ? 'bg-danger'
       : 'bg-warning text-dark';
 
-    // Build products list
+    // Products list WITH size
     const productsList = order.products && order.products.length > 0
-      ? order.products.map(p =>
-          `<div class="small">${p.name || 'Product'} x${p.quantity}</div>`
-        ).join('')
+      ? order.products.map(p => {
+          const name = p.product?.name || p.name || 'Product';
+          const size = p.size ? `<span class="badge bg-secondary ms-1">${p.size}</span>` : '';
+          return `<div class="small">${name} x${p.quantity} ${size}</div>`;
+        }).join('')
       : '<span class="text-muted small">No products</span>';
 
     const date = order.createdAt
       ? new Date(order.createdAt).toLocaleDateString()
       : 'N/A';
 
-    const shortId = order._id.toString().slice(-6).toUpperCase();
+    const shortId = orderId.slice(-6).toUpperCase();
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
@@ -64,12 +100,13 @@ function renderOrders(orders) {
       <td class="small">${order.deliveryAddress || 'N/A'}</td>
       <td class="small">${date}</td>
       <td><span class="badge ${statusColor}">${order.status || 'pending'}</span></td>
+      <td>${paymentBadge}</td>
     `;
     tbody.appendChild(tr);
   });
 }
 
 window.onload = async function () {
-  const orders = await fetchOrders();
-  renderOrders(orders);
+  const [orders, payments] = await Promise.all([fetchOrders(), fetchPayments()]);
+  renderOrders(orders, payments);
 };

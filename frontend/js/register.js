@@ -1,35 +1,76 @@
-document.getElementById('registerForm').addEventListener('submit', async function(e) {
+const API_BASE = 'http://localhost:5000/api';
+
+// Show/hide address field based on role
+document.querySelectorAll('input[name="role"]').forEach(radio => {
+  radio.addEventListener('change', function () {
+    const addressField = document.getElementById('addressField');
+    if (this.value === 'admin') {
+      addressField.style.display = 'none';
+    } else {
+      addressField.style.display = 'block';
+    }
+  });
+});
+
+document.getElementById('registerForm').addEventListener('submit', async function (e) {
   e.preventDefault();
 
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const role = document.querySelector('input[name="role"]:checked').value;
+  const address = document.getElementById('address').value.trim();
 
-    if (!name || !email || !password) {
-        alert("All fields are required!");
-        return;
-    }
+  const errorMsg = document.getElementById('errorMsg');
+  const successMsg = document.getElementById('successMsg');
+  const btn = document.getElementById('registerBtn');
+
+  errorMsg.classList.add('d-none');
+  successMsg.classList.add('d-none');
+
+  // Validation
+  if (!name || !email || !password) {
+    errorMsg.textContent = 'Please fill in all required fields!';
+    errorMsg.classList.remove('d-none');
+    return;
+  }
+
+  if (role === 'customer' && !address) {
+    errorMsg.textContent = 'Please enter your delivery address!';
+    errorMsg.classList.remove('d-none');
+    return;
+  }
+
+  btn.textContent = 'Registering...';
+  btn.disabled = true;
 
   try {
-    const response = await fetch('http://localhost:3000/api/users', {
+    const res = await fetch(`${API_BASE}/users`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name, email, password })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password, role, address })
     });
 
-    const data = await response.json();
+    const data = await res.json();
 
-    if (response.ok) {
-      alert('User registered successfully!');
-      window.location.href = "login.html";
+    if (res.ok) {
+      successMsg.textContent = 'Account created successfully! Redirecting to login...';
+      successMsg.classList.remove('d-none');
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1500);
     } else {
-      alert(data.message || 'Registration failed');
+      errorMsg.textContent = data.message || 'Registration failed. Try again.';
+      errorMsg.classList.remove('d-none');
+      btn.textContent = 'Register';
+      btn.disabled = false;
     }
 
   } catch (error) {
-    alert("Server error. Try again.");
+    errorMsg.textContent = 'Server error. Make sure the backend is running.';
+    errorMsg.classList.remove('d-none');
+    btn.textContent = 'Register';
+    btn.disabled = false;
     console.error(error);
   }
 });
