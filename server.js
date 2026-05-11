@@ -30,6 +30,16 @@ app.use('/api/carts', cartRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/payments', paymentRoutes);
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'Shoe-Pify API is running!' });
+});
+
+// API health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK', message: 'API is healthy' });
+});
+
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
