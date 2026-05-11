@@ -43,7 +43,7 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'API is healthy' });
 });
 
-app.get('*', (req, res) => {
+aapp.get('/{*path}', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
 });
 
