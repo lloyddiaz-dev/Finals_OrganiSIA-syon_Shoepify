@@ -36,8 +36,8 @@ https://shoe-pify-sqdg.onrender.com
 
 ## Contributors
 
-- **Jannus Nicole Robrigado** – Project Manager / Tester
-- **Joshua Belmonte** – Front-End Developer / Tester
+- **Jannus Nicole Robrigado** – Project Manager
+- **Joshua Belmonte** – Front-End Developer
 - **Philip Mustera** – Back-End Developer
 - **John Christopher Ernas** – Database Manager
 - **Lloyd Omar Diaz** – GitHub Manager
