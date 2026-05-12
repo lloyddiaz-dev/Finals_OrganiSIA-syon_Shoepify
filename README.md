@@ -1,38 +1,70 @@
 # Shoe-pify
 
-## Project Description
+## Overview
 
-Shoe-pify is an online shoe e-commerce system that allows users to browse, purchase, and manage shoe products online.
+Shoe-pify is a full-stack online shoe store built for a web systems project. The application supports product browsing, user authentication, shopping cart management, order processing, review submission, and administrative product management.
 
-## Features
+## Release
 
-- User Authentication
-- Product Management
-- Cart System
-- Order Management
-- Reviews and Ratings
-- Payment Module
+- Version: `v1.0-final`
+- Branch: `main`
+- Status: Production-ready final release
 
-## Technologies Used
+## Key Features
 
-- HTML
-- CSS
-- JavaScript
-- Node.js
-- Express.js
-- MongoDB
-- Bootstrap 5
+- Responsive and user-friendly storefront
+- User registration and login with secure authentication
+- Product catalog, categories, and product search
+- Shopping cart and checkout flow
+- Order history and order tracking
+- Review and rating system for products
+- Admin management for products, orders, and reviews
+
+## Technology Stack
+
+- Frontend: HTML, CSS, JavaScript
+- Backend: Node.js, Express.js
+- Database: MongoDB / Mongoose
+- Deployment-ready architecture with static asset serving
+
+## Repository Structure
+
+- `backend/` - Express server, API routes, data models, and database configuration
+- `frontend/` - Main client-facing pages, scripts, and styles
+- `docs/` - Project documentation and lab reports
 
 ## Installation
 
-1. Clone repository
-2. Run npm install
-3. Configure .env
-4. Run server
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/lloydomarrd-arch/final-project-ParaCodeCode-BSIT2B.git
+   cd final-project-ParaCodeCode-BSIT2B/backend
+   ```
+2. Install backend dependencies:
+   ```bash
+   npm install
+   ```
+3. Configure environment variables by creating a `.env` file in `backend/`.
+   Required variables should include your MongoDB connection string and any auth keys.
+4. Start the backend server:
+   ```bash
+   npm start
+   ```
+5. Open the frontend pages from the `frontend/` directory in a browser or deploy the entire project to a static host.
 
-## Live Demo
+## Running Locally
 
-https://shoe-pify-sqdg.onrender.com
+- Backend entrypoint: `backend/server.js`
+- API routes are defined in `backend/routes/`
+- Models are in `backend/models/`
+- Frontend pages are in `frontend/`
+- Static assets are in `frontend/css/`, `frontend/js/`, and `frontend/img/`
+
+## Notes
+
+- The backend is built to serve API requests and support a client-side frontend.
+- Duplicate or development-only directories have been removed to keep the repository clean.
+- `database/` and nested duplicate front-end/backend folders have been cleaned up.
 
 ## Contributors
 
@@ -42,56 +74,9 @@ https://shoe-pify-sqdg.onrender.com
 - **John Christopher Ernas** – Database Manager
 - **Lloyd Omar Diaz** – GitHub Manager
 
-## Phase 1: Backend Setup
+## Final Improvements
 
-### Functionality Changes
-
-- **Project Initialization**: Set up backend project configuration and dependencies using Node.js and npm.
-- **Database Configuration**: Added database connection module for MongoDB integration.
-- **Initial Structure**: Established the foundation for the backend with package.json and basic folder structure.
-
-## Phase 2: Backend Development
-
-### Functionality Changes
-
-- **Data Models**: Implemented Mongoose models for User, Product, Category, Cart, Order, Payment, and Review.
-- **API Routes**: Created Express.js routes for all CRUD operations on users, products, categories, carts, orders, payments, and reviews.
-- **Server Setup**: Configured Express server with middleware for handling requests and responses.
-
-## Phase 3: Frontend Development
-
-### Functionality Changes
-
-- **HTML Pages**: Developed complete set of HTML pages including index, login, register, dashboard, products, cart, orders, and admin interfaces.
-- **JavaScript Functionality**: Added client-side JavaScript for product display, form handling, and user interactions.
-- **Styling**: Implemented CSS for responsive design and user-friendly interface.
-- **Documentation**: Added Phase-3 Frontend Documentation and Lab 11 README with implementation details.
-
-## Phase 4: Integration and Security
-
-### Functionality Changes
-
-- **API Integration**: Connected frontend forms to backend API endpoints for user registration and authentication.
-- **Security Enhancements**: Implemented input validation, XSS protection, and rate limiting to secure the application.
-
-## Phase 5: GitHub and Team Workflow
-
-### Functionality Changes
-
-- **Frontend Updates**: HTML pages and JavaScript files for handling forms have been implemented and connected to the backend API.
-- **Backend Enhancements**: API controllers for user registration and other routes have been updated to handle form submissions securely.
-- **Security Features**: Implemented validation, XSS protection, and rate limiting to ensure secure interactions.
-- **Collaboration**: All changes committed and pushed to GitHub with clear commit messages for team tracking.
-
-## Phase 6: Finalizing CRUD (Update & Delete)
-
-### Functionality Changes
-
-- **PUT and DELETE API Implementation**: Added backend routes for updating and deleting data using Express and Mongoose. Controllers were configured to handle user edits and removals efficiently.
-- **Frontend UI Integration**: Implemented Edit and Delete buttons across relevant pages (e.g., dashboard, listings) with proper data binding using data-id.
-- **Edit Functionality**: Created modal forms that preload existing user data. Users can update information, which is then sent to the backend using PUT requests.
-- **Delete Functionality**: Added confirmation prompts before deletion and connected DELETE requests to remove data from the database.
-- **Database Synchronization**: Verified that all updates and deletions are correctly reflected in MongoDB without inconsistencies.
-- **Testing**: API endpoints were tested using Postman/Thunder Client before frontend integration to ensure reliability.
-- **GitHub Updates**: All new files (edit.js, delete.js, modals, and updated routes) were committed and pushed to the repository with organized commit logs.
-- **Documentation**: Screenshots of edit modals, delete confirmations, and database changes were prepared along with code snippets for the final report.
+- Consolidated final changes into the `main` branch
+- Removed unused duplicate folders and cleanup artifacts
+- Created the release tag `v1.0-final`
+- Updated project documentation for final delivery
