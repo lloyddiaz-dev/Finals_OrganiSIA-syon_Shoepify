@@ -1,12 +1,46 @@
-### Hi! We are ParaCodeCode, composed of:
+# Shoe-pify
+
+## Project Description
+
+Shoe-pify is an online shoe e-commerce system that allows users to browse, purchase, and manage shoe products online.
+
+## Features
+
+- User Authentication
+- Product Management
+- Cart System
+- Order Management
+- Reviews and Ratings
+- Payment Module
+
+## Technologies Used
+
+- HTML
+- CSS
+- JavaScript
+- Node.js
+- Express.js
+- MongoDB
+- Bootstrap 5
+
+## Installation
+
+1. Clone repository
+2. Run npm install
+3. Configure .env
+4. Run server
+
+## Live Demo
+
+https://shoe-pify-sqdg.onrender.com
+
+## Contributors
 
 - **Jannus Nicole Robrigado** – Project Manager / Tester
 - **Joshua Belmonte** – Front-End Developer / Tester
 - **Philip Mustera** – Back-End Developer
 - **John Christopher Ernas** – Database Manager
 - **Lloyd Omar Diaz** – GitHub Manager
-
-As a team, we collaborated to complete the project by handling different responsibilities across frontend, backend, database, testing, and version control. Despite challenges such as bugs and integration issues, we remained persistent and worked together to achieve a fully functional system.
 
 ## Phase 1: Backend Setup
 
