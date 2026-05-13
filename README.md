@@ -80,3 +80,44 @@ Shoe-pify is a full-stack online shoe store built for a web systems project. The
 - Removed unused duplicate folders and cleanup artifacts
 - Created the release tag `v1.0-final`
 - Updated project documentation for final delivery
+
+## Live Deployment URL
+- https://shoe-pify-sqdg.onrender.com
+
+## 🚀 How to Clone and Run ShoePify
+
+### Prerequisites
+Make sure you have these installed:
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- [Git](https://git-scm.com/)
+
+---
+
+### Step 1 — Clone the Repository
+git clone https://github.com/lloydomarrd-arch/final-project-ParaCodeCode-BSIT2B.git
+
+### Step 2 — Go to the backend folder
+cd final-project-ParaCodeCode-BSIT2B/backend
+
+### Step 3 — Install dependencies
+npm install
+
+### Step 4 — Create .env file
+Create a file called .env inside the backend folder and add:
+
+MONGO_URI=your_mongodb_atlas_connection_string
+PORT=5000
+
+### Step 5 — Start the backend server
+npm start
+
+Server will run on http://localhost:5000
+
+### Step 6 — Open the frontend
+Open the frontend folder and open index.html using Live Server in VS Code.
+
+---
+
+### Default Admin Account
+Email: (your admin email here)
+Password: (your admin password here)
