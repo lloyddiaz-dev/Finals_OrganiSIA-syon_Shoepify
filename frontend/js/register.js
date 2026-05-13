@@ -60,14 +60,22 @@ document.getElementById('registerForm').addEventListener('submit', async functio
         window.location.href = 'login.html';
       }, 1500);
     } else {
-      errorMsg.textContent = data.message || 'Registration failed. Try again.';
+      // Intercept raw MongoDB duplicate key error and show friendly message
+      const isDuplicate =
+        (data.message && data.message.includes('E11000')) ||
+        (data.message && data.message.includes('duplicate key'));
+
+      errorMsg.textContent = isDuplicate
+        ? 'This email is already registered. Please login instead.'
+        : data.message || 'Registration failed. Try again.';
+
       errorMsg.classList.remove('d-none');
       btn.textContent = 'Register';
       btn.disabled = false;
     }
 
   } catch (error) {
-    errorMsg.textContent = 'Server error. Make sure the backend is running.';
+    errorMsg.textContent = 'Unable to connect. Please check your connection and try again.';
     errorMsg.classList.remove('d-none');
     btn.textContent = 'Register';
     btn.disabled = false;
