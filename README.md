@@ -2,7 +2,7 @@
 
 ## Overview
 
-Shoe-pify is a full-stack online shoe store built for a web systems project. The application supports product browsing, user authentication, shopping cart management, order processing, review submission, and administrative product management.
+Shoe-pify is an online shoe e-commerce platform that allows customers to browse, search, and purchase shoes while providing administrators with tools to manage products, orders, and user.
 
 ## Release
 
