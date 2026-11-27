@@ -1,4 +1,6 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = window.location.hostname === 'localhost'
+    ? 'http://localhost:5000/api'
+    : 'https://shoe-pify-sqdg.onrender.com/api';
 let allProducts = [];
  
 const DEFAULT_SIZES = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
