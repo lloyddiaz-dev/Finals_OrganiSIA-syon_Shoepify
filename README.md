@@ -9,7 +9,7 @@ Shoe-pify is an online shoe e-commerce platform that allows customers to browse,
 - **Jannus Nicole Robrigado** – Project Manager
 - **Reginald Lumbab** Systems Analyst
 - **Winie Joy Narag Sario** System Designer
-- **Philip Mustera** – Back-End Developer
+- **John Roan Ballester** – Back-End Developer
 - **Lloyd Omar Diaz** – Front-End Developer
 - **John Edmar Bongcodin** Integration Developer
 - **John Christopher Ernas** QA tester
