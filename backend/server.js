@@ -1,6 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+<<<<<<< HEAD
+=======
+const path = require('path'); 
+>>>>>>> f845d963f14885bbb71ef35cd49b7ae87fcadeb1
 const connectDB = require('./config/db');
 
 const app = express();
@@ -12,6 +16,11 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+<<<<<<< HEAD
+=======
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+>>>>>>> f845d963f14885bbb71ef35cd49b7ae87fcadeb1
 // Import your routes
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
@@ -30,6 +39,23 @@ app.use('/api/carts', cartRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/payments', paymentRoutes);
 
+<<<<<<< HEAD
+=======
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'Shoe-Pify API is running!' });
+});
+
+// API health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK', message: 'API is healthy' });
+});
+
+app.get('/{*path}', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+});
+
+>>>>>>> f845d963f14885bbb71ef35cd49b7ae87fcadeb1
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
