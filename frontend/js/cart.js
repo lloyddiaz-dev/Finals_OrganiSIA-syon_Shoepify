@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 const API_BASE = 'http://localhost:5000/api';
-=======
-const API_BASE = '/api';
->>>>>>> f845d963f14885bbb71ef35cd49b7ae87fcadeb1
 
 // Get logged in user
 const currentUser = JSON.parse(localStorage.getItem('shoepify_user') || 'null');
@@ -223,7 +219,6 @@ function setupCheckout() {
 
     try {
       const orderRes = await fetch(`${API_BASE}/orders`, {
-<<<<<<< HEAD
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(order)
@@ -236,14 +231,6 @@ if (!orderRes.ok) {
 }
 
 const savedOrder = responseData;
-=======
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(order)
-      });
-      if (!orderRes.ok) throw new Error('Order failed');
-      const savedOrder = await orderRes.json();
->>>>>>> f845d963f14885bbb71ef35cd49b7ae87fcadeb1
 
       await fetch(`${API_BASE}/payments`, {
         method: 'POST',
@@ -277,15 +264,9 @@ const savedOrder = responseData;
       window.location.href = 'orders.html';
 
     } catch (error) {
-<<<<<<< HEAD
   alert('Failed to place order: ' + error.message);
   console.error('Order Error:', error);
 }
-=======
-      alert('Failed to place order. Please try again.');
-      console.error(error);
-    }
->>>>>>> f845d963f14885bbb71ef35cd49b7ae87fcadeb1
   });
 }
 

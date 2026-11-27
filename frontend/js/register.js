@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 const API_BASE = 'http://localhost:5000/api';
-=======
-const API_BASE = '/api';
->>>>>>> f845d963f14885bbb71ef35cd49b7ae87fcadeb1
 
 // Show/hide address field based on role
 document.querySelectorAll('input[name="role"]').forEach(radio => {
@@ -22,7 +18,7 @@ document.getElementById('registerForm').addEventListener('submit', async functio
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value.trim();
-  const role = document.querySelector('input[name="role"]:checked').value;
+ const role = 'customer';
   const address = document.getElementById('address').value.trim();
 
   const errorMsg = document.getElementById('errorMsg');

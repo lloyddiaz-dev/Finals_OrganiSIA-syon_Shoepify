@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-const API_BASE = 'http://localhost:5000/api';
-=======
-const API_BASE = '/api';
->>>>>>> f845d963f14885bbb71ef35cd49b7ae87fcadeb1
+const API_BASE = window.location.hostname === 'localhost'
+    ? 'http://localhost:5000/api'
+    : 'https://shoe-pify-sqdg.onrender.com/api';
 let selectedRating = 0;
 
 // Get logged in user

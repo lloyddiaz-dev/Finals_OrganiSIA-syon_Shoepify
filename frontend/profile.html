@@ -1,23 +1,191 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Profile</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | ShoePify</title>
+
   <link rel="stylesheet" href="css/style.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
 
-<nav class="navbar navbar-light bg-white px-4 shadow-sm">
-  <span class="navbar-brand text-danger fw-bold">ShoePify</span>
+<body class="bg-light">
+
+<nav class="navbar bg-white px-4 shadow-sm">
+  <a href="dashboard.html" class="navbar-brand text-danger fw-bold">ShoePify</a>
+  <a href="dashboard.html" class="btn btn-outline-danger btn-sm">Back to Shop</a>
 </nav>
 
-<div class="container mt-5">
-  <div class="card p-4 shadow">
-    <h4>Profile</h4>
-    <p><strong>Name:</strong> Juan Dela Cruz</p>
-    <p><strong>Email:</strong> user@email.com</p>
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+
+      <div class="card p-4 shadow-sm border-0">
+
+        <div class="text-center mb-4">
+          <div class="rounded-circle bg-danger text-white d-inline-flex justify-content-center align-items-center"
+               style="width:80px;height:80px;font-size:32px;">
+            <span id="userInitial">U</span>
+          </div>
+
+          <h3 class="mt-3 fw-bold">My Profile</h3>
+          <p class="text-muted">Manage your account information</p>
+        </div>
+
+        <div id="message" class="alert d-none"></div>
+
+        <form id="profileForm">
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Full Name</label>
+            <input type="text" class="form-control" id="profileName" required disabled>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Email Address</label>
+            <input type="email" class="form-control" id="profileEmail" required disabled>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Delivery Address</label>
+            <textarea class="form-control" id="profileAddress" rows="3" disabled required></textarea>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button type="button" class="btn btn-outline-danger" id="editBtn">
+              Edit Profile
+            </button>
+
+            <button type="submit" class="btn btn-danger d-none" id="saveBtn">
+              Save Changes
+            </button>
+
+            <button type="button" class="btn btn-secondary d-none" id="cancelBtn">
+              Cancel
+            </button>
+
+            <a href="dashboard.html" class="btn btn-light">
+              Continue Shopping
+            </a>
+          </div>
+
+        </form>
+      </div>
+    </div>
   </div>
 </div>
+
+<script>
+const API_BASE = 'http://localhost:5000/api';
+
+let user = JSON.parse(localStorage.getItem('shoepify_user') || 'null');
+
+if (!user || !user._id) {
+  window.location.href = 'login.html';
+} else {
+
+  const nameInput = document.getElementById('profileName');
+  const emailInput = document.getElementById('profileEmail');
+  const addressInput = document.getElementById('profileAddress');
+
+  const editBtn = document.getElementById('editBtn');
+  const saveBtn = document.getElementById('saveBtn');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const message = document.getElementById('message');
+
+  function displayProfile() {
+    nameInput.value = user.name || '';
+    emailInput.value = user.email || '';
+    addressInput.value = user.address || '';
+
+    document.getElementById('userInitial').textContent =
+      (user.name || 'U').charAt(0).toUpperCase();
+  }
+
+  function setEditing(editing) {
+    nameInput.disabled = !editing;
+    emailInput.disabled = !editing;
+    addressInput.disabled = !editing;
+
+    editBtn.classList.toggle('d-none', editing);
+    saveBtn.classList.toggle('d-none', !editing);
+    cancelBtn.classList.toggle('d-none', !editing);
+  }
+
+  function showMessage(text, type) {
+    message.textContent = text;
+    message.className = 'alert alert-' + type;
+  }
+
+  displayProfile();
+
+  editBtn.addEventListener('click', () => {
+    message.classList.add('d-none');
+    displayProfile();
+    setEditing(true);
+  });
+
+  cancelBtn.addEventListener('click', () => {
+    displayProfile();
+    setEditing(false);
+    message.classList.add('d-none');
+  });
+
+  document.getElementById('profileForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const address = addressInput.value.trim();
+
+    if (!name || !email || !address) {
+      showMessage('Please fill in all fields.', 'danger');
+      return;
+    }
+
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Saving...';
+
+    try {
+      const response = await fetch(`${API_BASE}/users/${user._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          address
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Unable to update profile.');
+      }
+
+      user.name = data.name;
+      user.email = data.email;
+      user.address = data.address;
+
+      localStorage.setItem('shoepify_user', JSON.stringify(user));
+
+      displayProfile();
+      setEditing(false);
+
+      showMessage('Profile updated successfully!', 'success');
+
+    } catch (error) {
+      showMessage(error.message, 'danger');
+    } finally {
+      saveBtn.disabled = false;
+      saveBtn.textContent = 'Save Changes';
+    }
+  });
+}
+</script>
 
 </body>
 </html>
