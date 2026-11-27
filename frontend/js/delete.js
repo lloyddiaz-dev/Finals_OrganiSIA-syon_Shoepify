@@ -1,4 +1,6 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = window.location.hostname === 'localhost'
+    ? 'http://localhost:5000/api'
+    : 'https://shoe-pify-sqdg.onrender.com/api';
 
 function deleteProduct(id) {
   if (confirm('Are you sure you want to delete this product?')) {
