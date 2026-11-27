@@ -1,0 +1,32 @@
+{
+  "name": "OrganiSIA_syon_FinalProject_Shoepify",
+  "version": "1.0.0",
+  "description": "Hi! We are ParaCodeCode. We copy, we paste, we pray, and sometimes our code still errors. Through all the bugs, late nights, and endless commits, we just whisper to our screens “Sana gumana na.”",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+"scripts": {
+  "start": "nodemon server.js",
+  "dev": "nodemon server.js"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lloydomarrd-arch/final-project-CommitnCry-BSIT2B.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/lloydomarrd-arch/final-project-CommitnCry-BSIT2B/issues"
+  },
+  "homepage": "https://github.com/lloydomarrd-arch/final-project-CommitnCry-BSIT2B#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.4.1",
+    "nodemon": "^3.1.14"
+  }
+}

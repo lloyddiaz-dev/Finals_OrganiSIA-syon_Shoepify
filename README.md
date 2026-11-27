@@ -2,6 +2,7 @@
 
 ## Overview
 
+<<<<<<< HEAD
 Shoe-pify is a full-stack online shoe store built for a web systems project. The application supports product browsing, user authentication, shopping cart management, order processing, review submission, and administrative product management.
 
 ## Release
@@ -65,10 +66,14 @@ Shoe-pify is a full-stack online shoe store built for a web systems project. The
 - The backend is built to serve API requests and support a client-side frontend.
 - Duplicate or development-only directories have been removed to keep the repository clean.
 - `database/` and nested duplicate front-end/backend folders have been cleaned up.
+=======
+Shoe-pify is an online shoe e-commerce platform that allows customers to browse, search, and purchase shoes while providing administrators with tools to manage products, orders, and user.
+>>>>>>> 5f807b24b514b93747b3ac9cca4ebad61765d074
 
 ## Contributors
 
 - **Jannus Nicole Robrigado** – Project Manager
+<<<<<<< HEAD
 - **Joshua Belmonte** – Front-End Developer
 - **Philip Mustera** – Back-End Developer
 - **John Christopher Ernas** – Database Manager
@@ -131,3 +136,14 @@ Open the frontend folder and open index.html using Live Server in VS Code.
 
 Email: (your admin email here)
 Password: (your admin password here)
+=======
+- **Reginald Lumbab** – Systems Analyst
+- **Winie Joy Narag Sario** – System Designer
+- **John Roan Ballester**, **Justin Dasallas**, **Jose Relova** – Back-End Developer
+- **Lloyd Omar Diaz** – Front-End Developer
+- **John Edmar Bongcodin** – Integration Developer
+- **John Christopher Ernas** – QA tester
+- **Joshua Belmonte** – Documentation Lead
+
+
+>>>>>>> 5f807b24b514b93747b3ac9cca4ebad61765d074
