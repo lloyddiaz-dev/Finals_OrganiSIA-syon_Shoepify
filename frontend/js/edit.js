@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const API_BASE = 'http://localhost:5000/api';
+=======
+const API_BASE = '/api';
+>>>>>>> f845d963f14885bbb71ef35cd49b7ae87fcadeb1
 
 function openAddModal() {
   document.getElementById('productModalLabel').textContent = 'Add Product';

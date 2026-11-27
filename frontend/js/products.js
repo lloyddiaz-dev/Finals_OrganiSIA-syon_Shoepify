@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const API_BASE = 'http://localhost:5000/api';
+=======
+const API_BASE = '/api';
+>>>>>>> f845d963f14885bbb71ef35cd49b7ae87fcadeb1
 let allProducts = [];
  
 const DEFAULT_SIZES = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
